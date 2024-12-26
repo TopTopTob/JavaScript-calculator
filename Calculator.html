@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>新计算器</title>
+        <style>
+            div.out-box {
+                width: 510px;
+                background: #a1c6b5;
+                border: 1px solid rgba(0, 0, 0, 0.038);
+                border-radius: 20px;
+                padding: 10px 14px;
+
+                box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2),
+                    inset 4px 4px 4px rgba(255, 255, 255, 0.4);
+            }
+
+            div.out-box .display-box {
+                /* width: 100%; */
+                border-radius: 8px;
+                margin-bottom: 16px;
+                background: rgba(0, 0, 0, 0.2);
+                padding: 6px 6px;
+
+                position: relative;
+            }
+
+            div.out-box .display-box > div {
+                display: flex;
+            }
+
+            div.out-box .display-box > .time {
+                position: absolute;
+                right: 6px;
+                height: 36px;
+                width: 120px;
+                padding-right: 3px;
+                /* background: white; */
+
+                font-family: "Franklin Gothic Medium", "Arial Narrow", Arial,
+                    sans-serif;
+                font-size: 12px;
+                justify-content: flex-end;
+                align-items: center;
+                color: rgba(0, 0, 0, 0.37);
+            }
+
+            div.out-box .display-box > .display-content {
+                margin-bottom: 2px;
+            }
+
+            div.out-box .display-box > .display-content > input {
+                font-family: "Franklin Gothic Medium", "Arial Narrow", Arial,
+                    sans-serif;
+                font-size: 16px;
+                padding-left: 6px;
+                padding-right: 6px;
+                border-radius: 5px;
+                background: rgba(0, 0, 0, 0.058);
+            }
+
+            div.out-box .display-box > .input-box > input {
+                font-family: "Franklin Gothic Medium", "Arial Narrow", Arial,
+                    sans-serif;
+                font-size: 24px;
+                height: 40px;
+                /* border: 1px solid white; */
+                padding-left: 8px;
+                padding-right: 8px;
+                border-radius: 5px;
+                background: beige;
+            }
+
+            div.out-box .display-box > div > input {
+                flex: 1;
+                height: 30px;
+                line-height: 30px;
+            }
+
+            .out-box .operate-box {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .out-box .operate-box .right-box {
+                display: flex;
+                flex-direction: column;
+                margin-left: 10px;
+            }
+
+            .out-box .operate-box .right-box button {
+                font-family: "Franklin Gothic Medium", "Arial Narrow", Arial,
+                    sans-serif;
+                font-size: 24px;
+                width: 80px;
+                height: 88px;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 8px;
+                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+            }
+
+            .out-box .operate-box .right-box button:first-child {
+                margin-bottom: 8px;
+            }
+
+            .out-box .operate-box .right-box button:hover {
+                background-color: rgba(0, 0, 0, 0.3);
+                color: whitesmoke;
+            }
+
+            .out-box .operate-box .right-box button:active {
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+
+            .out-box .operate-box .left-box div button {
+                font-family: "Franklin Gothic Medium", "Arial Narrow", Arial,
+                    sans-serif;
+                font-size: 20px;
+                width: 100px;
+                height: 40px;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 8px;
+                margin-bottom: 8px;
+                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+            }
+
+            .out-box .operate-box .left-box div button:hover {
+                background-color: rgba(0, 0, 0, 0.3);
+                color: whitesmoke;
+            }
+
+            .out-box .operate-box .left-box div button:active {
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+
+            .out-box
+                .operate-box
+                .left-box
+                > div:nth-child(4)
+                > button:nth-child(3) {
+                background-color: rgb(237, 215, 18);
+            }
+
+            .out-box
+                .operate-box
+                .left-box
+                > div:nth-child(4)
+                > button:nth-child(3):hover {
+                background-color: rgba(0, 0, 0, 0.3);
+                color: rgb(237, 215, 18);
+            }
+
+            .out-box
+                .operate-box
+                .left-box
+                > div:nth-child(4)
+                > button:nth-child(3):active {
+                background-color: rgba(0, 0, 0, 0.4);
+                /* color: rgb(237, 215, 18); */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="out-box">
+            <div class="display-box">
+                <div class="time"></div>
+                <div class="display-content">
+                    <input type="text" id="display" disabled />
+                </div>
+                <div class="input-box">
+                    <input type="text" id="result" disabled />
+                </div>
+            </div>
+
+            <div class="operate-box">
+                <div class="left-box">
+                    <div>
+                        <button onclick="appendNumber('1')">1</button>
+                        <button onclick="appendNumber('2')">2</button>
+                        <button onclick="appendNumber('3')">3</button>
+                        <button onclick="operate('/')">/</button>
+                    </div>
+
+                    <div>
+                        <button onclick="appendNumber('4')">4</button>
+                        <button onclick="appendNumber('5')">5</button>
+                        <button onclick="appendNumber('6')">6</button>
+                        <button onclick="operate('*')">*</button>
+                    </div>
+
+                    <div>
+                        <button onclick="appendNumber('7')">7</button>
+                        <button onclick="appendNumber('8')">8</button>
+                        <button onclick="appendNumber('9')">9</button>
+                        <button onclick="operate('-')">-</button>
+                    </div>
+
+                    <div>
+                        <button onclick="appendNumber('0')">0</button>
+                        <button onclick="appendNumber('.')">.</button>
+                        <button onclick="calculate()">=</button>
+                        <button onclick="operate('+')">+</button>
+                    </div>
+                </div>
+
+                <div class="right-box">
+                    <button onclick="del()">DEL</button>
+                    <button onclick="empty()">CE</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let newNumber = "";
+            function appendNumber(number) {
+                let result = document.getElementById("result");
+
+                // 判断当前最后是否是 /
+                // if (result.value.slice(-1) === "/" && Number(number) === 0) {
+                //     return;
+                // }
+
+                // 判断是否已有.
+                if (newNumber.includes(".") && number === ".") return;
+
+                // 判断首位是否是0
+                if (
+                    newNumber[0] === "0" &&
+                    number === "0" &&
+                    newNumber.length === 1
+                )
+                    return;
+
+                newNumber += number;
+
+                result.value += number;
+            }
+
+            function operate(operator) {
+                newNumber = "";
+
+                let result = document.getElementById("result");
+                // result.value = "" + eval(result.value + operator);
+
+                // 判断是否是第一位
+                if (result.value.length === 0) return;
+
+                // 判断最后一位是否是运算符
+                if (
+                    // result.value.slice(-1) !== "" &&
+                    isNaN(Number(result.value.slice(-1)))
+                ) {
+                    result.value = "" + result.value.slice(0, -1) + operator;
+                } else {
+                    result.value = "" + result.value + operator;
+                }
+            }
+
+            // 补0公共函数
+            function formatNumber(num) {
+                return String(num).padStart(2, "0");
+            }
+
+            function calculate() {
+                let display = document.getElementById("display");
+                let time = document.querySelector(".time");
+                let result = document.getElementById("result");
+
+                let display_content = "";
+
+                // console.log(result.value);
+                if (
+                    result.value === undefined ||
+                    result.value === null ||
+                    result.value === "" ||
+                    (result.value.length === 1 && isNaN(result.value))
+                )
+                    return;
+
+                // 判断 / 后面是否为0
+                for (let i = result.value.length - 1; i >= 0; i--) {
+                    if (
+                        result.value[i] !== "." &&
+                        isNaN(result.value[i]) &&
+                        result.value[i] === "/" &&
+                        Number(newNumber) === 0
+                    ) {
+                        result.value = result.value.slice(
+                            0,
+                            result.value.length - newNumber.length
+                        );
+                        newNumber = "";
+                        return;
+                    }
+                }
+
+                // if (result.value.length === 1) {
+                //     if(!isNaN(result.value)|| )
+                // }
+                // console.log(isNaN(result.value.slice(-1)));
+                if (isNaN(result.value.slice(-1))) {
+                    result.value = result.value.slice(0, -1);
+                }
+
+                display_content = result.value;
+
+                result.value = eval(result.value);
+                newNumber = result.value;
+
+                display.value = display_content + "=" + result.value;
+
+                const now = new Date();
+                const month = formatNumber(now.getMonth() + 1);
+                const day = formatNumber(now.getDate());
+                const hours = formatNumber(now.getHours());
+                const minutes = formatNumber(now.getMinutes());
+                const seconds = formatNumber(now.getSeconds());
+                time.textContent = `${month}/${day} ${hours}:${minutes}:${seconds}`;
+            }
+
+            function empty() {
+                newNumber = "";
+                document.getElementById("result").value = "";
+
+                document.getElementById("display").value = "";
+
+                document.querySelector(".time").textContent = "";
+            }
+
+            function del() {
+                newNumber = newNumber.slice(0, -1);
+
+                let result = document.getElementById("result");
+                const lastStr = result.value.slice(-1);
+                result.value = result.value.slice(0, -1);
+                // console.log(lastStr);
+                if (isNaN(lastStr) && lastStr !== ".") {
+                    console.log("del: ", result.value);
+                    for (let i = result.value.length - 1; i >= 0; i--) {
+                        if (isNaN(result.value[i]) && result.value[i] !== ".") {
+                            break;
+                        }
+                        newNumber = result.value[i] + newNumber;
+                    }
+                }
+                console.log(newNumber);
+            }
+        </script>
+    </body>
+</html>
